@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>لأجمل بنوته 🤭♥</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Amiri', serif;
+}
+
+body{
+background:linear-gradient(180deg,#120012,#1b001b,#000);
+color:white;
+text-align:center;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+.bg{
+position:fixed;
+inset:0;
+background:radial-gradient(circle,#ff4f9555,#000);
+filter:blur(25px);
+z-index:-1;
+}
+
+/* أيقونة الموسيقى */
+#musicIcon{
+position:fixed;
+top:20px;
+right:20px;
+font-size:25px;
+background:rgba(255,255,255,0.1);
+padding:10px;
+border-radius:50%;
+cursor:pointer;
+animation:floatIcon 3s ease-in-out infinite;
+z-index:999;
+}
+
+@keyframes floatIcon{
+0%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0);}
+}
+
+/* باسورد */
+#passwordScreen{
+position:fixed;
+inset:0;
+background:linear-gradient(135deg,#2b0000,#7a001f,#ff1f5a);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.pass-box{
+background:rgba(0,0,0,0.4);
+padding:30px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+}
+
+input{
+padding:12px;
+border-radius:10px;
+border:none;
+margin-top:10px;
+}
+
+button{
+background:#ff4f95;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:10px;
+margin-top:15px;
+cursor:pointer;
+}
+
+/* المحتوى */
+.container{
+display:none;
+padding:20px;
+}
+
+.box{
+background:rgba(0,0,0,0.4);
+padding:20px;
+border-radius:20px;
+margin-top:20px;
+}
+
+.main-title{
+font-size:35px;
+color:#ff4f95;
+}
+
+.typewriter{
+margin-top:20px;
+line-height:2;
+font-size:20px;
+}
+
+/* الصور */
+.gallery img{
+width:100%;
+border-radius:15px;
+margin-top:10px;
+}
+
+.caption{
+font-size:16px;
+margin-top:5px;
+opacity:.9;
+}
+
+/* عداد */
+.counter{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+margin-top:20px;
+gap:10px;
+}
+
+.time{
+background:#1b1b1b;
+padding:15px;
+border-radius:20px;
+border:1px solid #ff4f95;
+}
+
+/* رسائل */
+.secret{
+display:none;
+margin-top:20px;
+}
+
+/* قلوب */
+.heart{
+position:fixed;
+bottom:-20px;
+color:#ff4f95;
+animation:up linear forwards;
+opacity:0.8;
+pointer-events:none;
+}
+
+@keyframes up{
+0%{transform:translateY(0);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-120vh);opacity:0;}
+}
+
+/* نجوم ✨ */
+.star{
+position:fixed;
+color:#ffffff;
+opacity:0.6;
+pointer-events:none;
+animation:starMove linear forwards;
+text-shadow:0 0 10px white;
+}
+
+@keyframes starMove{
+0%{
+transform:translateY(0) scale(0.5);
+opacity:0;
+}
+20%{opacity:1;}
+100%{
+transform:translateY(-120vh) scale(1);
+opacity:0;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<!-- أيقونة الموسيقى -->
+<div id="musicIcon" onclick="toggleMusic()">🎵</div>
+
+<!-- باسورد -->
+<div id="passwordScreen">
+<div class="pass-box">
+<h2>ادخلي الباسورد 🤭♥</h2>
+<input type="password" id="password">
+<br>
+<button onclick="checkPassword()">فتح ♥</button>
+</div>
+</div>
+
+<!-- المحتوى -->
+<div class="container" id="mainContent">
+
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<h1 class="main-title">لأجمل بنوته في الدنيا ♥</h1>
+
+<div class="box">
+<div id="typewriter" class="typewriter"></div>
+</div>
+
+<div class="box gallery">
+
+<img src="photo1.jpg"><div class="caption">انتي جميلة ❤️</div>
+<img src="photo2.jpg"><div class="caption">أحلى حد ❤️</div>
+<img src="photo3.jpg"><div class="caption">بحبك ❤️</div>
+<img src="photo4.jpg"><div class="caption">نور الدنيا ❤️</div>
+
+</div>
+
+<div class="box">
+<div class="counter" id="counter"></div>
+</div>
+
+<button onclick="showSecret()">اضغطي هنا ❤️</button>
+
+<div class="box secret" id="secretMessage">
+انا مش هسيبك ابدآ ❤️<br>
+وكل يوم بحبك أكتر ❤️
+</div>
+
+<button onclick="showHidden()">سر ❤️</button>
+
+<div class="box secret" id="hiddenText">
+بحبك للأبد ❤️
+</div>
+
+</div>
+
+<script>
+
+/* تشغيل/إيقاف الموسيقى */
+function toggleMusic(){
+let music=document.getElementById("bgMusic");
+
+if(music.paused){
+music.play();
+}else{
+music.pause();
+}
+}
+
+/* باسورد */
+function checkPassword(){
+let pass=document.getElementById("password").value;
+
+if(pass==="love"){
+document.getElementById("passwordScreen").style.display="none";
+document.getElementById("mainContent").style.display="block";
+
+let music=document.getElementById("bgMusic");
+music.volume=0.5;
+music.play().catch(()=>{});
+
+startTyping();
+}else{
+alert("غلط 😑");
+}
+}
+
+/* كتابة */
+const text=`بحبك اوي ومبسوط انك في حياتي ❤️
+نفسي نفضل سوا ❤️
+وجودك أهم حاجة ❤️`;
+
+function startTyping(){
+let i=0;
+document.getElementById("typewriter").innerHTML="";
+
+function typing(){
+if(i<text.length){
+document.getElementById("typewriter").innerHTML+=text[i];
+i++;
+setTimeout(typing,40);
+}
+}
+typing();
+}
+
+/* سر */
+function showSecret(){
+document.getElementById("secretMessage").style.display="block";
+}
+
+function showHidden(){
+document.getElementById("hiddenText").style.display="block";
+}
+
+/* عداد */
+const startDate=new Date("2025-04-29T07:27:00");
+
+setInterval(()=>{
+let now=new Date();
+let diff=now-startDate;
+
+let days=Math.floor(diff/(1000*60*60*24));
+let hours=Math.floor((diff/(1000*60*60))%24);
+
+document.getElementById("counter").innerHTML=`
+<div class="time">❤️ ${days} يوم</div>
+<div class="time">❤️ ${hours} ساعة</div>
+`;
+},1000);
+
+/* قلوب ❤️ */
+function createHeart(){
+let h=document.createElement('div');
+h.className='heart';
+h.innerHTML='♥';
+
+h.style.left=Math.random()*100+'vw';
+h.style.fontSize=(10+Math.random()*20)+'px';
+h.style.animationDuration=(5+Math.random()*5)+'s';
+
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),10000);
+}
+
+setInterval(createHeart,600);
+
+/* نجوم ✨ */
+function createStar(){
+let s=document.createElement('div');
+s.className='star';
+s.innerHTML='✨';
+
+s.style.left=Math.random()*100+'vw';
+s.style.fontSize=(8+Math.random()*14)+'px';
+s.style.animationDuration=(6+Math.random()*6)+'s';
+
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),12000);
+}
+
+setInterval(createStar,900);
+
+</script>
+
+</body>
+  </html>
